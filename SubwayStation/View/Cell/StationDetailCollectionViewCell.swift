@@ -22,15 +22,13 @@ class StationDetailCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    func setup() {
-        
-        
+    func setup(with realTimeArrival: StationArrivalDatResponseModel.RealTimeArrival) {
         
         layer.cornerRadius = 12
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.2
         layer.shadowRadius = 10
-        backgroundColor = .systemBackground  // 29번줄부터 여기까지 그림자 만들기
+        backgroundColor = .systemBackground  // 26번줄부터 여기까지 그림자 만들기
         
         [linelabel, remainTimelabel].forEach {
             addSubview($0)
@@ -47,8 +45,8 @@ class StationDetailCollectionViewCell: UICollectionViewCell {
             $0.bottom.equalToSuperview().inset(16)
         }
         
-        linelabel.text = "한양대 방면"
-        remainTimelabel.text = "상왕십리 방면"
+        linelabel.text = realTimeArrival.line
+        remainTimelabel.text = realTimeArrival.remainTime
         
     }
    
