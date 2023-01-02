@@ -47,8 +47,8 @@ class StationDetailCollectionViewCell: UICollectionViewCell {
             $0.bottom.equalToSuperview().inset(16)
         }
         
-        linelabel.text = "오른쪽 방면"
-        remainTimelabel.text = "왼쪽방면"
+        linelabel.text = "한양대 방면"
+        remainTimelabel.text = "상왕십리 방면"
         
     }
    
