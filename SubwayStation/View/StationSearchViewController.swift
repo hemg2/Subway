@@ -25,7 +25,7 @@ class StationSearchViewController: UIViewController {
         
         navigationViews()
         setTableViewLayout()
-        requestStationName()
+    
     }
     
     private func navigationViews() {
@@ -46,8 +46,8 @@ class StationSearchViewController: UIViewController {
         }
     }
     
-    private func requestStationName() {
-        let urlString = "http://openapi.seoul.go.kr:8088/sample/json/SearchInfoBySubwayNameService/1/5/서울역"
+    private func requestStationName(from stationName: String) {
+        let urlString = "http://openapi.seoul.go.kr:8088/sample/json/SearchInfoBySubwayNameService/1/5/\(stationName)"
         
         
         AF.request(urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")
@@ -71,6 +71,12 @@ extension StationSearchViewController: UISearchBarDelegate {
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         numberOfCell = 0
         tableView.isHidden = true
+    }
+    
+    // 바로바로 키보드 입력 되서 업로드함
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        requestStationName(from: searchText)
+//        print(searchText)
     }
     
 }
