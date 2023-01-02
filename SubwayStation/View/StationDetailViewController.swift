@@ -16,7 +16,7 @@ final class StationDetailViewController: UIViewController {
     }()
     
     @objc func fetchData() {
-//        print("리프레쉬")
+//        print("리프레쉬")   Asynchronous
         refreshControl.endRefreshing()
     }
 
