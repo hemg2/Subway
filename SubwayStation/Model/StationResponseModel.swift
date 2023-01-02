@@ -9,7 +9,7 @@ import Foundation
 
 
 struct StationResponseModel: Decodable {
-    var stations: [Station] { searchInfo.row}
+    var stations: [Station] { searchInfo.row }
     
     private let searchInfo: SearchInfoBySubwayNameServiceModel
     

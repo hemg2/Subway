@@ -10,7 +10,7 @@ import SnapKit
 import Alamofire
 
 class StationSearchViewController: UIViewController {
-    private var numberOfCell: Int = 0
+    private var stations: [Station] = []
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.dataSource = self
@@ -51,10 +51,11 @@ class StationSearchViewController: UIViewController {
         
         
         AF.request(urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")
-            .responseDecodable(of: StationResponseModel.self) { response in
-                guard case .success(let data) = response.result else { return }
-                
-                print(data.stations)
+            .responseDecodable(of: StationResponseModel.self) { [weak self] response in
+                guard let self = self, case .success(let data) = response.result else { return }
+                self.stations = data.stations
+                self.tableView.reloadData()
+//                print(data.stations)
             }
             .resume()
     }
@@ -63,14 +64,15 @@ class StationSearchViewController: UIViewController {
 
 extension StationSearchViewController: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        numberOfCell = 10
+        
         tableView.reloadData()
         tableView.isHidden = false
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        numberOfCell = 0
+        
         tableView.isHidden = true
+        stations = []
     }
     
     // 바로바로 키보드 입력 되서 업로드함
@@ -85,12 +87,14 @@ extension StationSearchViewController: UISearchBarDelegate {
 
 extension StationSearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return numberOfCell
+        return stations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "\(indexPath.item)"
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Cell")
+        let station = stations[indexPath.row]
+        cell.textLabel?.text = station.stationName
+        cell.detailTextLabel?.text = station.lineNumber
         
         return cell
     }
