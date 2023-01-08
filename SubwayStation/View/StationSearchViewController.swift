@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Alamofire
 
-class StationSearchViewController: UIViewController {
+final class StationSearchViewController: UIViewController {
     private var stations: [Station] = []
     private lazy var tableView: UITableView = {
         let tableView = UITableView()

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StationDetailCollectionViewCell: UICollectionViewCell {
+final class StationDetailCollectionViewCell: UICollectionViewCell {
     private lazy var linelabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15, weight: .bold)
